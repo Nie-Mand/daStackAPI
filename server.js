@@ -4,14 +4,24 @@ const { getPage } = require('./src/app.js')
 
 const app = express()
 const APP = process.env.URL
-console.log(APP)
+const port = process.env.PORT || 8000
 
-app.get('/stack/:stack', cors({ origin: APP }), async (req, res) => {
+app.use(cors({ origin: '*' }))
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", '*')
+    res.header("Access-Control-Allow-Credentials", true)
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json')
+    next()
+})
+
+app.get('/stack/:stack', async (req, res) => {
     const { stack } = req.params
     const data = await getPage(stack)
     return res.json(data)
 })
 
-app.get('/', cors({ origin: '*' }), (req, res) => res.send('Welcome to daStack API'))
+app.get('/', (req, res) => res.send('Welcome to daStack API'))
 
-app.listen(8000, () => console.log('Server is Running'))
+app.listen(port, () => console.log('Server is Running'))
