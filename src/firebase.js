@@ -2,10 +2,10 @@ const firebase = require('firebase/app')
 require('firebase/firestore')
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC7GNmm-HFibjBbpPIFuihnhGcoYMEFzWY",
-    authDomain: "dastackbyniemand.firebaseapp.com",
-    projectId: "dastackbyniemand",
-    appId: "1:702436102104:web:ff5ee7ceb18e0f489dacad",
+    apiKey: process.env.APIKEY,
+    authDomain: process.env.AUTHD,
+    projectId: process.env.PROJID,
+    appId: process.env.APPID,
 }
   
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig)
