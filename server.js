@@ -24,4 +24,8 @@ app.get('/stack/:stack', async (req, res) => {
 
 app.get('/', (req, res) => res.send('Welcome to daStack API'))
 
+<<<<<<< HEAD
 app.listen(port, () => console.log('Server is Running'))
+=======
+app.listen(8000, () => console.log('Server is Running'))
+>>>>>>> fb90a8f0ce65f66e58c27f1befab5d29b40a457a
