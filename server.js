@@ -6,7 +6,7 @@ const app = express()
 const APP = process.env.URL
 console.log(APP)
 
-app.get('/stack/:stack', cors({ origin: APP }), async (req, res) => {
+app.get('/stack/:stack', cors({ origin: '*' }), async (req, res) => {
     const { stack } = req.params
     const data = await getPage(stack)
     return res.json(data)
