@@ -6,21 +6,17 @@ const app = express()
 const APP = process.env.URL
 const port = process.env.PORT || 8000
 
-app.use(cors({ 
-    origin: true,
-    credentials: true,
- }))
 
-app.get('/stack/:stack', async (req, res) => {
+app.get('/stack/:stack', cors({ 
+    origin: APP,
+    credentials: true,
+ }), async (req, res) => {
     const { stack } = req.params
     const data = await getPage(stack)
     return res.json(data)
 })
 
-app.get('/', (req, res) => res.send('Welcome to daStack API'))
+app.get('/', cors({origin: true}), (req, res) => res.json({msg: 'Welcome to daStack API'}))
 
-<<<<<<< HEAD
 app.listen(port, () => console.log('Server is Running'))
-=======
-app.listen(8000, () => console.log('Server is Running'))
->>>>>>> fb90a8f0ce65f66e58c27f1befab5d29b40a457a
+
