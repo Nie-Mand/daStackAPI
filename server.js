@@ -1,24 +1,15 @@
 const express = require('express')
-const { join, resolve } = require('path')
+const cors = require('cors')
 const { getPage } = require('./src/app.js')
 
-const __root = resolve()
-
 const app = express()
+const APP = process.env.URL || 'http://localhost:3000'
 
-app.get('/', (req, res) => {
-    return res.sendFile(join(__root + '/src/index.html'))
-})
-
-app.get('/company/:company', async (req, res) => {
-    const { company } = req.params
-    const data = await getPage(company)
+app.get('/stack/:stack', cors({origin: APP }), async (req, res) => {
+    const { stack } = req.params
+    const data = await getPage(stack)
     return res.json(data)
 })
 
-app.get('/tech/:tech', (req, res) => {
-    console.log(req.params)
-    return res.send('Ok')
-})
-
+app.get('/', cors({ origin: APP}), (req, res) => res.json({resp: 'hey'}))
 app.listen(8000, () => console.log('Server is Running'))
