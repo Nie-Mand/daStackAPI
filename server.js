@@ -11,5 +11,4 @@ app.get('/stack/:stack', cors({origin: APP }), async (req, res) => {
     return res.json(data)
 })
 
-app.get('/', cors({ origin: APP}), (req, res) => res.json({resp: 'hey'}))
 app.listen(8000, () => console.log('Server is Running'))
