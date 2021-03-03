@@ -6,15 +6,10 @@ const app = express()
 const APP = process.env.URL
 const port = process.env.PORT || 8000
 
-app.use(cors({ origin: '*' }))
-
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", '*')
-    res.header("Access-Control-Allow-Credentials", true)
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json')
-    next()
-})
+app.use(cors({ 
+    origin: true,
+    credentials: true,
+ }))
 
 app.get('/stack/:stack', async (req, res) => {
     const { stack } = req.params
