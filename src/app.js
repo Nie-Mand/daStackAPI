@@ -39,7 +39,11 @@ const getPage = async (cp) => {
         console.log(company, ' Stack is New to the Database')
 
         // Load the Web Page from StackShare
-        const { data } = await axios.get(`${STACKSHARE}/${company}/${company}`)
+        let data = null
+        await axios.get(`${STACKSHARE}/${company}/${company}`)
+            .then(({ data: d }) => data = d)
+            .catch(() => console.log('error'))
+        if (!data) return null
 
         // Extract the Resultig Query of GraphQL Part
         const whereTheDataAreLocated = data.indexOf(id2look4)
@@ -55,9 +59,10 @@ const getPage = async (cp) => {
             const { slug } = json[tool]
             let q = await getTech(slug)
             if (!q) {
-                const { name, title, canonicalUrl } = json[tool]
+                const { name, title, imageUrl, canonicalUrl } = json[tool]
                 const category = await getCategory(canonicalUrl)
-                q = await addTech(slug, { name, slug, title, category })
+                q = { name, slug, imageUrl, title, category }
+                await addTech(slug, q)
             }
             slugs.push(slug)
             res.push(q)
