@@ -11,4 +11,6 @@ app.get('/stack/:stack', cors({origin: APP }), async (req, res) => {
     return res.json(data)
 })
 
+app.get('/', (req, res) => res.send('Welcome to daStack API'))
+
 app.listen(8000, () => console.log('Server is Running'))
